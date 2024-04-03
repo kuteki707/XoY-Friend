@@ -8,10 +8,10 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/functionTextInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="f(x)"
         android:inputType="text"
@@ -20,14 +20,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/drawButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="82dp"
         android:text="Draw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/functionTextInput" />
 
     <FrameLayout
         android:id="@+id/chartContainer"
@@ -40,5 +40,80 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/outputTextView" />
+
+    <TextView
+        android:id="@+id/outputTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/drawButton" />
+
+    <TextView
+        android:id="@+id/fromTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:text="From:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/functionTextInput" />
+
+    <EditText
+        android:id="@+id/fromTextInput"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number|numberSigned"
+        app:layout_constraintStart_toEndOf="@+id/fromTextView"
+        app:layout_constraintTop_toBottomOf="@+id/functionTextInput" />
+
+    <TextView
+        android:id="@+id/toTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:text="To:"
+        app:layout_constraintStart_toEndOf="@+id/fromTextInput"
+        app:layout_constraintTop_toBottomOf="@+id/functionTextInput" />
+
+    <EditText
+        android:id="@+id/toTextInput"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="100"
+        android:inputType="number|numberSigned"
+        app:layout_constraintStart_toEndOf="@+id/toTextView"
+        app:layout_constraintTop_toBottomOf="@+id/functionTextInput" />
+
+    <TextView
+        android:id="@+id/pointsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:text="Points:"
+        app:layout_constraintStart_toEndOf="@+id/toTextInput"
+        app:layout_constraintTop_toBottomOf="@+id/functionTextInput" />
+
+    <EditText
+        android:id="@+id/pointsTextInput"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="1000"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/pointsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/functionTextInput" />
 </androidx.constraintlayout.widget.ConstraintLayout>
