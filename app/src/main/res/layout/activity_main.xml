@@ -25,6 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="82dp"
         android:text="Draw"
+        android:textSize="24dp"
+        android:backgroundTint="@color/darkGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/functionTextInput" />
@@ -112,8 +114,20 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="1000"
+        android:hint="100"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/pointsTextView"
         app:layout_constraintTop_toBottomOf="@+id/functionTextInput" />
+
+    <Button
+        android:id="@+id/statsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Stats"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/drawButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/drawButton"
+        app:layout_constraintTop_toTopOf="@+id/drawButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

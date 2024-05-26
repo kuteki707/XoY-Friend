@@ -2,6 +2,7 @@ package xyz.kuteki.xoyfriend
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
@@ -48,19 +49,56 @@ class MainActivity : AppCompatActivity() {
         val fromText = findViewById<EditText>(R.id.fromTextInput)
         val toText = findViewById<EditText>(R.id.toTextInput)
         val pointsText = findViewById<EditText>(R.id.pointsTextInput)
+        val statsButton = findViewById<Button>(R.id.statsButton)
+
         drawButton.setOnClickListener {
             val function = inputText.text.toString()
-            outputText.text = "f(x)=$function"
-            imm.hideSoftInputFromWindow(it.windowToken, 0)
+            if (function.isEmpty()) {
+                outputText.text = "Error: Function is empty"
+                statsButton.visibility = Button.INVISIBLE
+            }else {
+                outputText.text = "f(x)=$function"
+                imm.hideSoftInputFromWindow(it.windowToken, 0)
 
-            lineChart.data = generateLineData(function,fromText.text.toString().toInt(),toText.text.toString().toInt(),pointsText.text.toString().toInt())
-            lineChart.invalidate()
+                // Set default values if fields are empty
+                val from =
+                    if (fromText.text.toString().isEmpty()) 0 else fromText.text.toString()
+                        .toInt()
+                val to = if (toText.text.toString().isEmpty()) 100 else toText.text.toString()
+                    .toInt()
+                val points = if (pointsText.text.toString()
+                        .isEmpty()
+                ) 100 else pointsText.text.toString().toInt()
 
+                try {
+                    lineChart.isDoubleTapToZoomEnabled = true
+                    lineChart.setPinchZoom(true)
+
+                    lineChart.isDragEnabled = true
+                    lineChart.data = generateLineData(function, from, to, points)
+                    lineChart.invalidate()
+                    statsButton.visibility = Button.VISIBLE
+                } catch (e: Exception) {
+                    outputText.text = "Error: ${e.message}"
+                }
+            }
         }
+        statsButton.setOnClickListener{
+            val function = inputText.text.toString()
+            val from = if (fromText.text.toString().isEmpty()) 0 else fromText.text.toString().toInt()
+            val to = if (toText.text.toString().isEmpty()) 100 else toText.text.toString().toInt()
+            val points = if (pointsText.text.toString().isEmpty()) 100 else pointsText.text.toString().toInt()
 
-
-
+            val intent = Intent(this, StatsActivity::class.java)
+            intent.putExtra("function", function)
+            intent.putExtra("from", from)
+            intent.putExtra("to", to)
+            intent.putExtra("points", points)
+            startActivity(intent)
+        }
     }
+}
+
 
     private fun generateLineData(function:String,from:Int,to:Int,points:Int): LineData {
         val entries = ArrayList<Entry>()
@@ -84,4 +122,3 @@ class MainActivity : AppCompatActivity() {
 
         return LineData(dataSet)
     }
-}
