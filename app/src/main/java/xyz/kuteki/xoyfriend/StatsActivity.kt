@@ -30,7 +30,6 @@ class StatsActivity : AppCompatActivity() {
 
         val stats = calculateStats(function!!, from, to, points)
 
-        // Display the stats
         statsText.text = stats
 
         val backButton = findViewById<TextView>(R.id.backButton)
@@ -67,14 +66,21 @@ class StatsActivity : AppCompatActivity() {
         val variance = calculateVariance(function, from, to, points, mean)
         val std_dev = Math.sqrt(variance)
 
+        val f_mean = String.format("%.3f", sum / count)
+        val f_variance = String.format("%.3f", calculateVariance(function, from, to, points, mean.toDouble()))
+        val f_std_dev = String.format("%.3f", Math.sqrt(variance.toDouble()))
+        val f_max = String.format("%.3f", max)
+        val f_min = String.format("%.3f", min)
+        val f_sum = String.format("%.3f", sum)
+
         return """
             |Stats for f(x) = $function
-            |Mean: $mean
-            |Variance: $variance
-            |Standard Deviation: $std_dev
-            |Max: $max
-            |Min: $min
-            |Sum: $sum
+            |Mean: $f_mean
+            |Variance: $f_variance
+            |Standard Deviation: $f_std_dev
+            |Max: $f_max
+            |Min: $f_min
+            |Sum: $f_sum
             |Count: $count
         """.trimMargin()
     }

@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -25,6 +27,21 @@ import org.mariuszgromada.math.mxparser.License
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.help -> {
+                val intent = Intent(this, HelpActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         License.iConfirmNonCommercialUse("Edwin Kristof")
@@ -37,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val db = DatabaseHelper(this)
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         val lineChart = LineChart(this)
@@ -50,6 +68,12 @@ class MainActivity : AppCompatActivity() {
         val toText = findViewById<EditText>(R.id.toTextInput)
         val pointsText = findViewById<EditText>(R.id.pointsTextInput)
         val statsButton = findViewById<Button>(R.id.statsButton)
+        val historyButton = findViewById<Button>(R.id.historyButton)
+
+        historyButton.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+        }
 
         drawButton.setOnClickListener {
             val function = inputText.text.toString()
@@ -73,6 +97,8 @@ class MainActivity : AppCompatActivity() {
                 try {
                     lineChart.isDoubleTapToZoomEnabled = true
                     lineChart.setPinchZoom(true)
+
+                    db.addFunction(function)
 
                     lineChart.isDragEnabled = true
                     lineChart.data = generateLineData(function, from, to, points)
